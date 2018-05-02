@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4c46c0e8b89b454494effdb4f61b72ac" Name="Diagram1">
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Buse" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.ConfigLogique" Width="1.5" PointX="7.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.ConfigPhysique" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Creation" Width="1.5" PointX="3.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Essaie" Width="1.5" PointX="9.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.EssaieFilament" Width="1.5" PointX="12" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Fabricant" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Filament" Width="1.5" PointX="7.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Impression" Width="1.5" PointX="10.625" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Imprimante" Width="1.5" PointX="2.875" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.LogTable" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.ModeleImprimante" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.TypeFilament" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.Usager" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROJETSESSIONBD20657657Model.FilamentUtilise" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Buse_FabricantId_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_ConfigLogique_ImprimanteId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Essai_ConfigLogiqueId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_ConfigPhysique_ImprimanteId_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Essai_ConfigPhysiqueId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Impression_CreationId_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Essai_ImpressionId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_EssaieFilament_EssaieId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_EssaieFilament_FilamentId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Filament_FabricantId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_ModeleImprimante_FabricantId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Filament_ProprietaireId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Filament_TypeFilamentId" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Impression_UsagerId_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.FK_Imprimante_ModeleId_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.BuseTypeFilament" ManuallyRouted="false" />
+        <AssociationConnector Association="PROJETSESSIONBD20657657Model.ConfigPhysiqueBuse" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

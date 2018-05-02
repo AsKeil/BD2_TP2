@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PROJETSESSIONBD20657657ModelStoreContainer" CdmEntityContainer="PROJETSESSIONBD20657657Entities">
+    <EntitySetMapping Name="Buses">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Buse">
+        <MappingFragment StoreEntitySet="Buse">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="FabricantId" ColumnName="FabricantId" />
+          <ScalarProperty Name="DiametreIn" ColumnName="DiametreIn" />
+          <ScalarProperty Name="DiametreOut" ColumnName="DiametreOut" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConfigLogiques">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.ConfigLogique">
+        <MappingFragment StoreEntitySet="ConfigLogique">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ImprimanteId" ColumnName="ImprimanteId" />
+          <ScalarProperty Name="EpaisseurCouche" ColumnName="EpaisseurCouche" />
+          <ScalarProperty Name="Remplissage" ColumnName="Remplissage" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DeBase" ColumnName="DeBase" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConfigPhysiques">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.ConfigPhysique">
+        <MappingFragment StoreEntitySet="ConfigPhysique">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ImprimanteId" ColumnName="ImprimanteId" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Creations">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Creation">
+        <MappingFragment StoreEntitySet="Creation">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="URLSource" ColumnName="URLSource" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Essaies">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Essaie">
+        <MappingFragment StoreEntitySet="Essaie">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TempsDepart" ColumnName="TempsDepart" />
+          <ScalarProperty Name="DureeReele" ColumnName="DureeReele" />
+          <ScalarProperty Name="DureeEstime" ColumnName="DureeEstime" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="ConfigLogiqueId" ColumnName="ConfigLogiqueId" />
+          <ScalarProperty Name="ImpressionId" ColumnName="ImpressionId" />
+          <ScalarProperty Name="PourcentageReussi" ColumnName="PourcentageReussi" />
+          <ScalarProperty Name="ConfigPhysiqueId" ColumnName="ConfigPhysiqueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EssaieFilaments">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.EssaieFilament">
+        <MappingFragment StoreEntitySet="EssaieFilament">
+          <ScalarProperty Name="EssaieId" ColumnName="EssaieId" />
+          <ScalarProperty Name="FilamentId" ColumnName="FilamentId" />
+          <ScalarProperty Name="QteUtilise" ColumnName="QteUtilise" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fabricants">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Fabricant">
+        <MappingFragment StoreEntitySet="Fabricant">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Filaments">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Filament">
+        <MappingFragment StoreEntitySet="Filament">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Couleur" ColumnName="Couleur" />
+          <ScalarProperty Name="LongueurInitiale" ColumnName="LongueurInitiale" />
+          <ScalarProperty Name="DateAchat" ColumnName="DateAchat" />
+          <ScalarProperty Name="ProprietaireId" ColumnName="ProprietaireId" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="PoidInitial" ColumnName="PoidInitial" />
+          <ScalarProperty Name="TypeFilamentId" ColumnName="TypeFilamentId" />
+          <ScalarProperty Name="FabricantId" ColumnName="FabricantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Impressions">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Impression">
+        <MappingFragment StoreEntitySet="Impression">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UsagerId" ColumnName="UsagerId" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="CreationId" ColumnName="CreationId" />
+          <ScalarProperty Name="DateImpression" ColumnName="DateImpression" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Imprimantes">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Imprimante">
+        <MappingFragment StoreEntitySet="Imprimante">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="ModeleId" ColumnName="ModeleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogTables">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.LogTable">
+        <MappingFragment StoreEntitySet="LogTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DateEvenement" ColumnName="DateEvenement" />
+          <ScalarProperty Name="Evenement" ColumnName="Evenement" />
+          <ScalarProperty Name="IdOriginal" ColumnName="IdOriginal" />
+          <ScalarProperty Name="MaterielOriginal" ColumnName="MaterielOriginal" />
+          <ScalarProperty Name="DiametreOriginal" ColumnName="DiametreOriginal" />
+          <ScalarProperty Name="MaterielNouveau" ColumnName="MaterielNouveau" />
+          <ScalarProperty Name="DiametreNouveau" ColumnName="DiametreNouveau" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModeleImprimantes">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.ModeleImprimante">
+        <MappingFragment StoreEntitySet="ModeleImprimante">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="FabricantId" ColumnName="FabricantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeFilaments">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.TypeFilament">
+        <MappingFragment StoreEntitySet="TypeFilament">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Materiel" ColumnName="Materiel" />
+          <ScalarProperty Name="Diametre" ColumnName="Diametre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usagers">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.Usager">
+        <MappingFragment StoreEntitySet="Usager">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FilamentUtilises">
+      <EntityTypeMapping TypeName="PROJETSESSIONBD20657657Model.FilamentUtilise">
+        <MappingFragment StoreEntitySet="FilamentUtilise">
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Couleur" ColumnName="Couleur" />
+          <ScalarProperty Name="Materiel" ColumnName="Materiel" />
+          <ScalarProperty Name="QteTotal" ColumnName="QteTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BuseTypeFilament" TypeName="PROJETSESSIONBD20657657Model.BuseTypeFilament" StoreEntitySet="BuseTypeFilament">
+      <EndProperty Name="Buse">
+        <ScalarProperty Name="ID" ColumnName="BuseId" />
+      </EndProperty>
+      <EndProperty Name="TypeFilament">
+        <ScalarProperty Name="ID" ColumnName="TypeFilamentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ConfigPhysiqueBuse" TypeName="PROJETSESSIONBD20657657Model.ConfigPhysiqueBuse" StoreEntitySet="ConfigPhysiqueBuse">
+      <EndProperty Name="Buse">
+        <ScalarProperty Name="ID" ColumnName="BuseId" />
+      </EndProperty>
+      <EndProperty Name="ConfigPhysique">
+        <ScalarProperty Name="ID" ColumnName="ConfigPhysiqueId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PROJETSESSIONBD20657657Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Buse">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+    <Property Name="Prix" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="FabricantId" Type="Int32" />
+    <Property Name="DiametreIn" Type="Single" Nullable="false" />
+    <Property Name="DiametreOut" Type="Single" Nullable="false" />
+    <NavigationProperty Name="Fabricant" Relationship="Self.FK_Buse_FabricantId_ID" FromRole="Buse" ToRole="Fabricant" />
+    <NavigationProperty Name="TypeFilaments" Relationship="Self.BuseTypeFilament" FromRole="Buse" ToRole="TypeFilament" />
+    <NavigationProperty Name="ConfigPhysiques" Relationship="Self.ConfigPhysiqueBuse" FromRole="Buse" ToRole="ConfigPhysique" />
+  </EntityType>
+  <EntityType Name="ConfigLogique">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImprimanteId" Type="Int32" />
+    <Property Name="EpaisseurCouche" Type="Single" />
+    <Property Name="Remplissage" Type="Single" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+    <Property Name="DeBase" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Imprimante" Relationship="Self.FK_ConfigLogique_ImprimanteId" FromRole="ConfigLogique" ToRole="Imprimante" />
+    <NavigationProperty Name="Essaies" Relationship="Self.FK_Essai_ConfigLogiqueId" FromRole="ConfigLogique" ToRole="Essaie" />
+  </EntityType>
+  <EntityType Name="ConfigPhysique">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImprimanteId" Type="Int32" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Imprimante" Relationship="Self.FK_ConfigPhysique_ImprimanteId_ID" FromRole="ConfigPhysique" ToRole="Imprimante" />
+    <NavigationProperty Name="Essaies" Relationship="Self.FK_Essai_ConfigPhysiqueId" FromRole="ConfigPhysique" ToRole="Essaie" />
+    <NavigationProperty Name="Buses" Relationship="Self.ConfigPhysiqueBuse" FromRole="ConfigPhysique" ToRole="Buse" />
+  </EntityType>
+  <EntityType Name="Creation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="URLSource" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Impressions" Relationship="Self.FK_Impression_CreationId_ID" FromRole="Creation" ToRole="Impression" />
+  </EntityType>
+  <EntityType Name="Essaie">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TempsDepart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DureeReele" Type="Int32" />
+    <Property Name="DureeEstime" Type="Int32" />
+    <Property Name="Commentaire" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ConfigLogiqueId" Type="Int32" />
+    <Property Name="ImpressionId" Type="Int32" />
+    <Property Name="PourcentageReussi" Type="Int32" />
+    <Property Name="ConfigPhysiqueId" Type="Int32" />
+    <NavigationProperty Name="ConfigLogique" Relationship="Self.FK_Essai_ConfigLogiqueId" FromRole="Essaie" ToRole="ConfigLogique" />
+    <NavigationProperty Name="ConfigPhysique" Relationship="Self.FK_Essai_ConfigPhysiqueId" FromRole="Essaie" ToRole="ConfigPhysique" />
+    <NavigationProperty Name="Impression" Relationship="Self.FK_Essai_ImpressionId" FromRole="Essaie" ToRole="Impression" />
+    <NavigationProperty Name="EssaieFilaments" Relationship="Self.FK_EssaieFilament_EssaieId" FromRole="Essaie" ToRole="EssaieFilament" />
+  </EntityType>
+  <EntityType Name="EssaieFilament">
+    <Key>
+      <PropertyRef Name="EssaieId" />
+      <PropertyRef Name="FilamentId" />
+    </Key>
+    <Property Name="EssaieId" Type="Int32" Nullable="false" />
+    <Property Name="FilamentId" Type="Int32" Nullable="false" />
+    <Property Name="QteUtilise" Type="Single" Nullable="false" />
+    <NavigationProperty Name="Essaie" Relationship="Self.FK_EssaieFilament_EssaieId" FromRole="EssaieFilament" ToRole="Essaie" />
+    <NavigationProperty Name="Filament" Relationship="Self.FK_EssaieFilament_FilamentId" FromRole="EssaieFilament" ToRole="Filament" />
+  </EntityType>
+  <EntityType Name="Fabricant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Buses" Relationship="Self.FK_Buse_FabricantId_ID" FromRole="Fabricant" ToRole="Buse" />
+    <NavigationProperty Name="Filaments" Relationship="Self.FK_Filament_FabricantId" FromRole="Fabricant" ToRole="Filament" />
+    <NavigationProperty Name="ModeleImprimantes" Relationship="Self.FK_ModeleImprimante_FabricantId" FromRole="Fabricant" ToRole="ModeleImprimante" />
+  </EntityType>
+  <EntityType Name="Filament">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Couleur" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="LongueurInitiale" Type="Single" Nullable="false" />
+    <Property Name="DateAchat" Type="DateTime" Precision="0" />
+    <Property Name="ProprietaireId" Type="Int32" />
+    <Property Name="Prix" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="PoidInitial" Type="Single" />
+    <Property Name="TypeFilamentId" Type="Int32" />
+    <Property Name="FabricantId" Type="Int32" />
+    <NavigationProperty Name="EssaieFilaments" Relationship="Self.FK_EssaieFilament_FilamentId" FromRole="Filament" ToRole="EssaieFilament" />
+    <NavigationProperty Name="Fabricant" Relationship="Self.FK_Filament_FabricantId" FromRole="Filament" ToRole="Fabricant" />
+    <NavigationProperty Name="Usager" Relationship="Self.FK_Filament_ProprietaireId" FromRole="Filament" ToRole="Usager" />
+    <NavigationProperty Name="TypeFilament" Relationship="Self.FK_Filament_TypeFilamentId" FromRole="Filament" ToRole="TypeFilament" />
+  </EntityType>
+  <EntityType Name="Impression">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerId" Type="Int32" />
+    <Property Name="Nom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+    <Property Name="CreationId" Type="Int32" />
+    <Property Name="DateImpression" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Commentaire" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Creation" Relationship="Self.FK_Impression_CreationId_ID" FromRole="Impression" ToRole="Creation" />
+    <NavigationProperty Name="Essaies" Relationship="Self.FK_Essai_ImpressionId" FromRole="Impression" ToRole="Essaie" />
+    <NavigationProperty Name="Usager" Relationship="Self.FK_Impression_UsagerId_ID" FromRole="Impression" ToRole="Usager" />
+  </EntityType>
+  <EntityType Name="Imprimante">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Prix" Type="Decimal" Precision="17" Scale="2" Nullable="false" />
+    <Property Name="ModeleId" Type="Int32" />
+    <NavigationProperty Name="ConfigLogiques" Relationship="Self.FK_ConfigLogique_ImprimanteId" FromRole="Imprimante" ToRole="ConfigLogique" />
+    <NavigationProperty Name="ConfigPhysiques" Relationship="Self.FK_ConfigPhysique_ImprimanteId_ID" FromRole="Imprimante" ToRole="ConfigPhysique" />
+    <NavigationProperty Name="ModeleImprimante" Relationship="Self.FK_Imprimante_ModeleId_ID" FromRole="Imprimante" ToRole="ModeleImprimante" />
+  </EntityType>
+  <EntityType Name="LogTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateEvenement" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Evenement" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="IdOriginal" Type="Int32" Nullable="false" />
+    <Property Name="MaterielOriginal" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="DiametreOriginal" Type="Single" />
+    <Property Name="MaterielNouveau" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="DiametreNouveau" Type="Single" />
+  </EntityType>
+  <EntityType Name="ModeleImprimante">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Prix" Type="Decimal" Precision="17" Scale="2" />
+    <Property Name="FabricantId" Type="Int32" />
+    <NavigationProperty Name="Fabricant" Relationship="Self.FK_ModeleImprimante_FabricantId" FromRole="ModeleImprimante" ToRole="Fabricant" />
+    <NavigationProperty Name="Imprimantes" Relationship="Self.FK_Imprimante_ModeleId_ID" FromRole="ModeleImprimante" ToRole="Imprimante" />
+  </EntityType>
+  <EntityType Name="TypeFilament">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Materiel" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="Diametre" Type="Single" />
+    <NavigationProperty Name="Filaments" Relationship="Self.FK_Filament_TypeFilamentId" FromRole="TypeFilament" ToRole="Filament" />
+    <NavigationProperty Name="Buses" Relationship="Self.BuseTypeFilament" FromRole="TypeFilament" ToRole="Buse" />
+  </EntityType>
+  <EntityType Name="Usager">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MotDePasse" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Salt" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Filaments" Relationship="Self.FK_Filament_ProprietaireId" FromRole="Usager" ToRole="Filament" />
+    <NavigationProperty Name="Impressions" Relationship="Self.FK_Impression_UsagerId_ID" FromRole="Usager" ToRole="Impression" />
+  </EntityType>
+  <EntityType Name="FilamentUtilise">
+    <Key>
+      <PropertyRef Name="Nom" />
+      <PropertyRef Name="Prenom" />
+      <PropertyRef Name="Couleur" />
+    </Key>
+    <Property Name="Nom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Couleur" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Materiel" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="QteTotal" Type="Double" />
+  </EntityType>
+  <Association Name="FK_Buse_FabricantId_ID">
+    <End Role="Fabricant" Type="Self.Fabricant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Buse" Type="Self.Buse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Buse">
+        <PropertyRef Name="FabricantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConfigLogique_ImprimanteId">
+    <End Role="Imprimante" Type="Self.Imprimante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ConfigLogique" Type="Self.ConfigLogique" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Imprimante">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ConfigLogique">
+        <PropertyRef Name="ImprimanteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Essai_ConfigLogiqueId">
+    <End Role="ConfigLogique" Type="Self.ConfigLogique" Multiplicity="0..1" />
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConfigLogique">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Essaie">
+        <PropertyRef Name="ConfigLogiqueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConfigPhysique_ImprimanteId_ID">
+    <End Role="Imprimante" Type="Self.Imprimante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ConfigPhysique" Type="Self.ConfigPhysique" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Imprimante">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ConfigPhysique">
+        <PropertyRef Name="ImprimanteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Essai_ConfigPhysiqueId">
+    <End Role="ConfigPhysique" Type="Self.ConfigPhysique" Multiplicity="0..1" />
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConfigPhysique">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Essaie">
+        <PropertyRef Name="ConfigPhysiqueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Impression_CreationId_ID">
+    <End Role="Creation" Type="Self.Creation" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Impression" Type="Self.Impression" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Impression">
+        <PropertyRef Name="CreationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Essai_ImpressionId">
+    <End Role="Impression" Type="Self.Impression" Multiplicity="0..1" />
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Impression">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Essaie">
+        <PropertyRef Name="ImpressionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EssaieFilament_EssaieId">
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="1" />
+    <End Role="EssaieFilament" Type="Self.EssaieFilament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Essaie">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EssaieFilament">
+        <PropertyRef Name="EssaieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EssaieFilament_FilamentId">
+    <End Role="Filament" Type="Self.Filament" Multiplicity="1" />
+    <End Role="EssaieFilament" Type="Self.EssaieFilament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filament">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EssaieFilament">
+        <PropertyRef Name="FilamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filament_FabricantId">
+    <End Role="Fabricant" Type="Self.Fabricant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Filament" Type="Self.Filament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Filament">
+        <PropertyRef Name="FabricantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModeleImprimante_FabricantId">
+    <End Role="Fabricant" Type="Self.Fabricant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ModeleImprimante" Type="Self.ModeleImprimante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ModeleImprimante">
+        <PropertyRef Name="FabricantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filament_ProprietaireId">
+    <End Role="Usager" Type="Self.Usager" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Filament" Type="Self.Filament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usager">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Filament">
+        <PropertyRef Name="ProprietaireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filament_TypeFilamentId">
+    <End Role="TypeFilament" Type="Self.TypeFilament" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Filament" Type="Self.Filament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeFilament">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Filament">
+        <PropertyRef Name="TypeFilamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Impression_UsagerId_ID">
+    <End Role="Usager" Type="Self.Usager" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Impression" Type="Self.Impression" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usager">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Impression">
+        <PropertyRef Name="UsagerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Imprimante_ModeleId_ID">
+    <End Role="ModeleImprimante" Type="Self.ModeleImprimante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Imprimante" Type="Self.Imprimante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModeleImprimante">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Imprimante">
+        <PropertyRef Name="ModeleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BuseTypeFilament">
+    <End Role="Buse" Type="Self.Buse" Multiplicity="*" />
+    <End Role="TypeFilament" Type="Self.TypeFilament" Multiplicity="*" />
+  </Association>
+  <Association Name="ConfigPhysiqueBuse">
+    <End Role="Buse" Type="Self.Buse" Multiplicity="*" />
+    <End Role="ConfigPhysique" Type="Self.ConfigPhysique" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="PROJETSESSIONBD20657657Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Buses" EntityType="Self.Buse" />
+    <EntitySet Name="ConfigLogiques" EntityType="Self.ConfigLogique" />
+    <EntitySet Name="ConfigPhysiques" EntityType="Self.ConfigPhysique" />
+    <EntitySet Name="Creations" EntityType="Self.Creation" />
+    <EntitySet Name="Essaies" EntityType="Self.Essaie" />
+    <EntitySet Name="EssaieFilaments" EntityType="Self.EssaieFilament" />
+    <EntitySet Name="Fabricants" EntityType="Self.Fabricant" />
+    <EntitySet Name="Filaments" EntityType="Self.Filament" />
+    <EntitySet Name="Impressions" EntityType="Self.Impression" />
+    <EntitySet Name="Imprimantes" EntityType="Self.Imprimante" />
+    <EntitySet Name="LogTables" EntityType="Self.LogTable" />
+    <EntitySet Name="ModeleImprimantes" EntityType="Self.ModeleImprimante" />
+    <EntitySet Name="TypeFilaments" EntityType="Self.TypeFilament" />
+    <EntitySet Name="Usagers" EntityType="Self.Usager" />
+    <EntitySet Name="FilamentUtilises" EntityType="Self.FilamentUtilise" />
+    <AssociationSet Name="FK_Buse_FabricantId_ID" Association="Self.FK_Buse_FabricantId_ID">
+      <End Role="Fabricant" EntitySet="Fabricants" />
+      <End Role="Buse" EntitySet="Buses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConfigLogique_ImprimanteId" Association="Self.FK_ConfigLogique_ImprimanteId">
+      <End Role="Imprimante" EntitySet="Imprimantes" />
+      <End Role="ConfigLogique" EntitySet="ConfigLogiques" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Essai_ConfigLogiqueId" Association="Self.FK_Essai_ConfigLogiqueId">
+      <End Role="ConfigLogique" EntitySet="ConfigLogiques" />
+      <End Role="Essaie" EntitySet="Essaies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConfigPhysique_ImprimanteId_ID" Association="Self.FK_ConfigPhysique_ImprimanteId_ID">
+      <End Role="Imprimante" EntitySet="Imprimantes" />
+      <End Role="ConfigPhysique" EntitySet="ConfigPhysiques" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Essai_ConfigPhysiqueId" Association="Self.FK_Essai_ConfigPhysiqueId">
+      <End Role="ConfigPhysique" EntitySet="ConfigPhysiques" />
+      <End Role="Essaie" EntitySet="Essaies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Impression_CreationId_ID" Association="Self.FK_Impression_CreationId_ID">
+      <End Role="Creation" EntitySet="Creations" />
+      <End Role="Impression" EntitySet="Impressions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Essai_ImpressionId" Association="Self.FK_Essai_ImpressionId">
+      <End Role="Impression" EntitySet="Impressions" />
+      <End Role="Essaie" EntitySet="Essaies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EssaieFilament_EssaieId" Association="Self.FK_EssaieFilament_EssaieId">
+      <End Role="Essaie" EntitySet="Essaies" />
+      <End Role="EssaieFilament" EntitySet="EssaieFilaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EssaieFilament_FilamentId" Association="Self.FK_EssaieFilament_FilamentId">
+      <End Role="Filament" EntitySet="Filaments" />
+      <End Role="EssaieFilament" EntitySet="EssaieFilaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filament_FabricantId" Association="Self.FK_Filament_FabricantId">
+      <End Role="Fabricant" EntitySet="Fabricants" />
+      <End Role="Filament" EntitySet="Filaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModeleImprimante_FabricantId" Association="Self.FK_ModeleImprimante_FabricantId">
+      <End Role="Fabricant" EntitySet="Fabricants" />
+      <End Role="ModeleImprimante" EntitySet="ModeleImprimantes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filament_ProprietaireId" Association="Self.FK_Filament_ProprietaireId">
+      <End Role="Usager" EntitySet="Usagers" />
+      <End Role="Filament" EntitySet="Filaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filament_TypeFilamentId" Association="Self.FK_Filament_TypeFilamentId">
+      <End Role="TypeFilament" EntitySet="TypeFilaments" />
+      <End Role="Filament" EntitySet="Filaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Impression_UsagerId_ID" Association="Self.FK_Impression_UsagerId_ID">
+      <End Role="Usager" EntitySet="Usagers" />
+      <End Role="Impression" EntitySet="Impressions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Imprimante_ModeleId_ID" Association="Self.FK_Imprimante_ModeleId_ID">
+      <End Role="ModeleImprimante" EntitySet="ModeleImprimantes" />
+      <End Role="Imprimante" EntitySet="Imprimantes" />
+    </AssociationSet>
+    <AssociationSet Name="BuseTypeFilament" Association="Self.BuseTypeFilament">
+      <End Role="Buse" EntitySet="Buses" />
+      <End Role="TypeFilament" EntitySet="TypeFilaments" />
+    </AssociationSet>
+    <AssociationSet Name="ConfigPhysiqueBuse" Association="Self.ConfigPhysiqueBuse">
+      <End Role="Buse" EntitySet="Buses" />
+      <End Role="ConfigPhysique" EntitySet="ConfigPhysiques" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

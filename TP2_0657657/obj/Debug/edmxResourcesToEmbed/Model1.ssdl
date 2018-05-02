@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PROJETSESSIONBD20657657Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Buse">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="char" MaxLength="255" />
+    <Property Name="Prix" Type="decimal" Precision="17" Scale="2" />
+    <Property Name="FabricantId" Type="int" />
+    <Property Name="DiametreIn" Type="real" Nullable="false" />
+    <Property Name="DiametreOut" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BuseTypeFilament">
+    <Key>
+      <PropertyRef Name="BuseId" />
+      <PropertyRef Name="TypeFilamentId" />
+    </Key>
+    <Property Name="BuseId" Type="int" Nullable="false" />
+    <Property Name="TypeFilamentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConfigLogique">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImprimanteId" Type="int" />
+    <Property Name="EpaisseurCouche" Type="real" />
+    <Property Name="Remplissage" Type="real" />
+    <Property Name="Description" Type="char" MaxLength="255" />
+    <Property Name="DeBase" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConfigPhysique">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImprimanteId" Type="int" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ConfigPhysiqueBuse">
+    <Key>
+      <PropertyRef Name="ConfigPhysiqueId" />
+      <PropertyRef Name="BuseId" />
+    </Key>
+    <Property Name="ConfigPhysiqueId" Type="int" Nullable="false" />
+    <Property Name="BuseId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Creation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="URLSource" Type="varchar" MaxLength="1000" />
+    <Property Name="Description" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Essaie">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TempsDepart" Type="datetime" Nullable="false" />
+    <Property Name="DureeReele" Type="int" />
+    <Property Name="DureeEstime" Type="int" />
+    <Property Name="Commentaire" Type="varchar" MaxLength="1000" />
+    <Property Name="ConfigLogiqueId" Type="int" />
+    <Property Name="ImpressionId" Type="int" />
+    <Property Name="PourcentageReussi" Type="int" />
+    <Property Name="ConfigPhysiqueId" Type="int" />
+  </EntityType>
+  <EntityType Name="EssaieFilament">
+    <Key>
+      <PropertyRef Name="EssaieId" />
+      <PropertyRef Name="FilamentId" />
+    </Key>
+    <Property Name="EssaieId" Type="int" Nullable="false" />
+    <Property Name="FilamentId" Type="int" Nullable="false" />
+    <Property Name="QteUtilise" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fabricant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="char" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Filament">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Couleur" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="LongueurInitiale" Type="real" Nullable="false" />
+    <Property Name="DateAchat" Type="date" />
+    <Property Name="ProprietaireId" Type="int" />
+    <Property Name="Prix" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="PoidInitial" Type="real" />
+    <Property Name="TypeFilamentId" Type="int" />
+    <Property Name="FabricantId" Type="int" />
+  </EntityType>
+  <EntityType Name="Impression">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerId" Type="int" />
+    <Property Name="Nom" Type="char" MaxLength="255" />
+    <Property Name="CreationId" Type="int" />
+    <Property Name="DateImpression" Type="datetime" Nullable="false" />
+    <Property Name="Commentaire" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Imprimante">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Prix" Type="decimal" Precision="17" Scale="2" Nullable="false" />
+    <Property Name="ModeleId" Type="int" />
+  </EntityType>
+  <EntityType Name="LogTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateEvenement" Type="datetime" Nullable="false" />
+    <Property Name="Evenement" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="IdOriginal" Type="int" Nullable="false" />
+    <Property Name="MaterielOriginal" Type="char" MaxLength="30" />
+    <Property Name="DiametreOriginal" Type="real" />
+    <Property Name="MaterielNouveau" Type="char" MaxLength="30" />
+    <Property Name="DiametreNouveau" Type="real" />
+  </EntityType>
+  <EntityType Name="ModeleImprimante">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Prix" Type="decimal" Precision="17" Scale="2" />
+    <Property Name="FabricantId" Type="int" />
+  </EntityType>
+  <EntityType Name="TypeFilament">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Materiel" Type="char" MaxLength="30" />
+    <Property Name="Diametre" Type="real" />
+  </EntityType>
+  <EntityType Name="Usager">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Prenom" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="MotDePasse" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Salt" Type="char" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PROJETSESSIONBD20657657.dbo.FilamentUtilise' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="FilamentUtilise">
+    <Key>
+      <PropertyRef Name="Nom" />
+      <PropertyRef Name="Prenom" />
+      <PropertyRef Name="Couleur" />
+    </Key>
+    <Property Name="Nom" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Prenom" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Couleur" Type="char" MaxLength="255" Nullable="false" />
+    <Property Name="Materiel" Type="char" MaxLength="30" />
+    <Property Name="QteTotal" Type="float" />
+  </EntityType>
+  <Association Name="FK_Buse_FabricantId_ID">
+    <End Role="Fabricant" Type="Self.Fabricant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Buse" Type="Self.Buse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Buse">
+        <PropertyRef Name="FabricantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BuseTypefilament_BuseId">
+    <End Role="Buse" Type="Self.Buse" Multiplicity="1" />
+    <End Role="BuseTypeFilament" Type="Self.BuseTypeFilament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buse">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BuseTypeFilament">
+        <PropertyRef Name="BuseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BuseTypeFilament_TypeFilamentId">
+    <End Role="TypeFilament" Type="Self.TypeFilament" Multiplicity="1" />
+    <End Role="BuseTypeFilament" Type="Self.BuseTypeFilament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeFilament">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BuseTypeFilament">
+        <PropertyRef Name="TypeFilamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConfigLogique_ImprimanteId">
+    <End Role="Imprimante" Type="Self.Imprimante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ConfigLogique" Type="Self.ConfigLogique" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Imprimante">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ConfigLogique">
+        <PropertyRef Name="ImprimanteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConfigPhysique_ImprimanteId_ID">
+    <End Role="Imprimante" Type="Self.Imprimante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ConfigPhysique" Type="Self.ConfigPhysique" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Imprimante">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ConfigPhysique">
+        <PropertyRef Name="ImprimanteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConfigPhysiqueBuse_BuseId">
+    <End Role="Buse" Type="Self.Buse" Multiplicity="1" />
+    <End Role="ConfigPhysiqueBuse" Type="Self.ConfigPhysiqueBuse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buse">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ConfigPhysiqueBuse">
+        <PropertyRef Name="BuseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConfigPhysiqueBuse_ConfigPhysiqueId">
+    <End Role="ConfigPhysique" Type="Self.ConfigPhysique" Multiplicity="1" />
+    <End Role="ConfigPhysiqueBuse" Type="Self.ConfigPhysiqueBuse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConfigPhysique">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ConfigPhysiqueBuse">
+        <PropertyRef Name="ConfigPhysiqueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Essai_ConfigLogiqueId">
+    <End Role="ConfigLogique" Type="Self.ConfigLogique" Multiplicity="0..1" />
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConfigLogique">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Essaie">
+        <PropertyRef Name="ConfigLogiqueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Essai_ConfigPhysiqueId">
+    <End Role="ConfigPhysique" Type="Self.ConfigPhysique" Multiplicity="0..1" />
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConfigPhysique">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Essaie">
+        <PropertyRef Name="ConfigPhysiqueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Essai_ImpressionId">
+    <End Role="Impression" Type="Self.Impression" Multiplicity="0..1" />
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Impression">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Essaie">
+        <PropertyRef Name="ImpressionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EssaieFilament_EssaieId">
+    <End Role="Essaie" Type="Self.Essaie" Multiplicity="1" />
+    <End Role="EssaieFilament" Type="Self.EssaieFilament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Essaie">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EssaieFilament">
+        <PropertyRef Name="EssaieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EssaieFilament_FilamentId">
+    <End Role="Filament" Type="Self.Filament" Multiplicity="1" />
+    <End Role="EssaieFilament" Type="Self.EssaieFilament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filament">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EssaieFilament">
+        <PropertyRef Name="FilamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filament_FabricantId">
+    <End Role="Fabricant" Type="Self.Fabricant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Filament" Type="Self.Filament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Filament">
+        <PropertyRef Name="FabricantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filament_ProprietaireId">
+    <End Role="Usager" Type="Self.Usager" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Filament" Type="Self.Filament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usager">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Filament">
+        <PropertyRef Name="ProprietaireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filament_TypeFilamentId">
+    <End Role="TypeFilament" Type="Self.TypeFilament" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Filament" Type="Self.Filament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeFilament">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Filament">
+        <PropertyRef Name="TypeFilamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Impression_CreationId_ID">
+    <End Role="Creation" Type="Self.Creation" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Impression" Type="Self.Impression" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Impression">
+        <PropertyRef Name="CreationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Impression_UsagerId_ID">
+    <End Role="Usager" Type="Self.Usager" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Impression" Type="Self.Impression" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usager">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Impression">
+        <PropertyRef Name="UsagerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Imprimante_ModeleId_ID">
+    <End Role="ModeleImprimante" Type="Self.ModeleImprimante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Imprimante" Type="Self.Imprimante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModeleImprimante">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Imprimante">
+        <PropertyRef Name="ModeleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModeleImprimante_FabricantId">
+    <End Role="Fabricant" Type="Self.Fabricant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ModeleImprimante" Type="Self.ModeleImprimante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ModeleImprimante">
+        <PropertyRef Name="FabricantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PROJETSESSIONBD20657657ModelStoreContainer">
+    <EntitySet Name="Buse" EntityType="Self.Buse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BuseTypeFilament" EntityType="Self.BuseTypeFilament" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConfigLogique" EntityType="Self.ConfigLogique" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConfigPhysique" EntityType="Self.ConfigPhysique" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConfigPhysiqueBuse" EntityType="Self.ConfigPhysiqueBuse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Creation" EntityType="Self.Creation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Essaie" EntityType="Self.Essaie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EssaieFilament" EntityType="Self.EssaieFilament" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fabricant" EntityType="Self.Fabricant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Filament" EntityType="Self.Filament" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Impression" EntityType="Self.Impression" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Imprimante" EntityType="Self.Imprimante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LogTable" EntityType="Self.LogTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModeleImprimante" EntityType="Self.ModeleImprimante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeFilament" EntityType="Self.TypeFilament" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usager" EntityType="Self.Usager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FilamentUtilise" EntityType="Self.FilamentUtilise" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [FilamentUtilise].[Nom] AS [Nom], 
+    [FilamentUtilise].[Prenom] AS [Prenom], 
+    [FilamentUtilise].[Couleur] AS [Couleur], 
+    [FilamentUtilise].[Materiel] AS [Materiel], 
+    [FilamentUtilise].[QteTotal] AS [QteTotal]
+    FROM [dbo].[FilamentUtilise] AS [FilamentUtilise]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Buse_FabricantId_ID" Association="Self.FK_Buse_FabricantId_ID">
+      <End Role="Fabricant" EntitySet="Fabricant" />
+      <End Role="Buse" EntitySet="Buse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BuseTypefilament_BuseId" Association="Self.FK_BuseTypefilament_BuseId">
+      <End Role="Buse" EntitySet="Buse" />
+      <End Role="BuseTypeFilament" EntitySet="BuseTypeFilament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BuseTypeFilament_TypeFilamentId" Association="Self.FK_BuseTypeFilament_TypeFilamentId">
+      <End Role="TypeFilament" EntitySet="TypeFilament" />
+      <End Role="BuseTypeFilament" EntitySet="BuseTypeFilament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConfigLogique_ImprimanteId" Association="Self.FK_ConfigLogique_ImprimanteId">
+      <End Role="Imprimante" EntitySet="Imprimante" />
+      <End Role="ConfigLogique" EntitySet="ConfigLogique" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConfigPhysique_ImprimanteId_ID" Association="Self.FK_ConfigPhysique_ImprimanteId_ID">
+      <End Role="Imprimante" EntitySet="Imprimante" />
+      <End Role="ConfigPhysique" EntitySet="ConfigPhysique" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConfigPhysiqueBuse_BuseId" Association="Self.FK_ConfigPhysiqueBuse_BuseId">
+      <End Role="Buse" EntitySet="Buse" />
+      <End Role="ConfigPhysiqueBuse" EntitySet="ConfigPhysiqueBuse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConfigPhysiqueBuse_ConfigPhysiqueId" Association="Self.FK_ConfigPhysiqueBuse_ConfigPhysiqueId">
+      <End Role="ConfigPhysique" EntitySet="ConfigPhysique" />
+      <End Role="ConfigPhysiqueBuse" EntitySet="ConfigPhysiqueBuse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Essai_ConfigLogiqueId" Association="Self.FK_Essai_ConfigLogiqueId">
+      <End Role="ConfigLogique" EntitySet="ConfigLogique" />
+      <End Role="Essaie" EntitySet="Essaie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Essai_ConfigPhysiqueId" Association="Self.FK_Essai_ConfigPhysiqueId">
+      <End Role="ConfigPhysique" EntitySet="ConfigPhysique" />
+      <End Role="Essaie" EntitySet="Essaie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Essai_ImpressionId" Association="Self.FK_Essai_ImpressionId">
+      <End Role="Impression" EntitySet="Impression" />
+      <End Role="Essaie" EntitySet="Essaie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EssaieFilament_EssaieId" Association="Self.FK_EssaieFilament_EssaieId">
+      <End Role="Essaie" EntitySet="Essaie" />
+      <End Role="EssaieFilament" EntitySet="EssaieFilament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EssaieFilament_FilamentId" Association="Self.FK_EssaieFilament_FilamentId">
+      <End Role="Filament" EntitySet="Filament" />
+      <End Role="EssaieFilament" EntitySet="EssaieFilament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filament_FabricantId" Association="Self.FK_Filament_FabricantId">
+      <End Role="Fabricant" EntitySet="Fabricant" />
+      <End Role="Filament" EntitySet="Filament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filament_ProprietaireId" Association="Self.FK_Filament_ProprietaireId">
+      <End Role="Usager" EntitySet="Usager" />
+      <End Role="Filament" EntitySet="Filament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filament_TypeFilamentId" Association="Self.FK_Filament_TypeFilamentId">
+      <End Role="TypeFilament" EntitySet="TypeFilament" />
+      <End Role="Filament" EntitySet="Filament" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Impression_CreationId_ID" Association="Self.FK_Impression_CreationId_ID">
+      <End Role="Creation" EntitySet="Creation" />
+      <End Role="Impression" EntitySet="Impression" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Impression_UsagerId_ID" Association="Self.FK_Impression_UsagerId_ID">
+      <End Role="Usager" EntitySet="Usager" />
+      <End Role="Impression" EntitySet="Impression" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Imprimante_ModeleId_ID" Association="Self.FK_Imprimante_ModeleId_ID">
+      <End Role="ModeleImprimante" EntitySet="ModeleImprimante" />
+      <End Role="Imprimante" EntitySet="Imprimante" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModeleImprimante_FabricantId" Association="Self.FK_ModeleImprimante_FabricantId">
+      <End Role="Fabricant" EntitySet="Fabricant" />
+      <End Role="ModeleImprimante" EntitySet="ModeleImprimante" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

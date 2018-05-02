@@ -1,0 +1,12 @@
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\TP2_0657657.exe.config
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\TP2_0657657.exe
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\TP2_0657657.pdb
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\EntityFramework.dll
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\EntityFramework.xml
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\obj\Debug\TP2_0657657.csprojResolveAssemblyReference.cache
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\obj\Debug\TP2_0657657.csproj.CoreCompileInputs.cache
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\obj\Debug\TP2_0657657.csproj.CopyComplete
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\obj\Debug\TP2_0657657.exe
+C:\Users\as_ke\source\repos\TP2_0657657\TP2_0657657\obj\Debug\TP2_0657657.pdb
