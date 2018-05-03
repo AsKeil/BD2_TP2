@@ -31,7 +31,7 @@ namespace TP2_0657657
             string questionConfirmation = ("Voulez-vous créer " + nom + " " + prenom + " " + motDePasseString + " :");
             if (Input.InputConfirmation(questionConfirmation)) {
                 {
-                    var usage = new Usager();
+                    Usager usage = new Usager();
                     usage.Nom = nom;
                     usage.Prenom = prenom;
                     usage.MotDePasse = motDePasseTable[1];
@@ -53,7 +53,7 @@ namespace TP2_0657657
         {
             int usageID = Input.InputInt("Entrez le id de l'usagé (0 pour annuler) : ");
             if (usageID != 0) {
-                var usage = this.context.Usagers.Find(usageID);
+                Usager usage = this.context.Usagers.Find(usageID);
                 if (usage == null) {
                     Console.WriteLine("Il n'y a aucun usagé avec ce id.");
                     usageID = 0;
@@ -75,7 +75,7 @@ namespace TP2_0657657
             if (usageId != 0) {
                 AfficherMenuUpdateUsage();
                 choixMenu = Input.InputIntInList("Que voulez vous faire : ", new List<int> { 0, 1, 2, 3 });
-                var usage = this.context.Usagers.Where(c => c.ID == usageId).First(); // L'usagé que l'on veut modifier
+                Usager usage = this.context.Usagers.Where(c => c.ID == usageId).First(); // L'usagé que l'on veut modifier
                 switch (choixMenu) {
                     case 1:
                         modification = Input.InputStringNonVide("Entrez le nouveau nom :");
@@ -113,35 +113,84 @@ namespace TP2_0657657
         }
         public void DUsage()
         // Fonction pour supprimer un usagé
+        // Le propriétaire d'un filament ne peut être supprimé si un autre usagé a fait une impression avec son filament
         // A2 D
         {
-            bool veutSupprime;
-            bool estSupprimable = true;
-            int usageId = RUsage(); // Recherche de l'usagé à supprimer. Retourne 0 si l'usagé n'existe pas
-            if (usageId != 0) {
-                var impressions = this.context.Impressions.Where(c => c.UsagerId == usageId).FirstOrDefault(); // Est-ce que l'usagé a fait une impression
-                var filaments = this.context.Filaments.Where(c => c.ProprietaireId == usageId).FirstOrDefault(); // Est-ce que l'usagé a fait un achat
-                if (impressions != null){
-                    estSupprimable = false; // Si il y a un élément dans une des deux tables, on ne doit pas supprimer l'usagé
-                } else if (filaments != null) {
-                    estSupprimable = false;
+            bool veutSupprimer;
+            Console.Clear();
+            AfficherLesUsages();
+            int usageId = RUsage(); // Recherche le id de l'usagé à supprimer. Retourne 0 si l'usagé n'existe pas
+            if (usageId != 0) { // Si il n'y a pas d'annulation
+                Usager usageAEffacer = this.context.Usagers.Find(usageId);
+                Console.Clear();
+                AfficherElementsUsageASupprimer(usageAEffacer);
+                veutSupprimer = Input.InputConfirmation("Êtes-vous certain de vouloir supprimer cet usagé et tout ce qui en découle: ");
+                if (veutSupprimer) { // Si on veut bel et bien supprimer cet usagé
+                    SupprimerUsage(usageAEffacer);
+                    this.context.SaveChanges();
+                    Console.WriteLine("L'usagé a été supprimer.");
                 }
-                if (!estSupprimable) {
-                    Console.WriteLine("Cet usagé a effectué des opérations et ne peut pas être supprimer.");
-                } else {
-                    veutSupprime = Input.InputConfirmation("Êtes-vous certain de vouloir supprimer cet usagé : ");
-                    if (veutSupprime) {
-                        var usage = this.context.Usagers.Where(c => c.ID == usageId).First(); // L'usagé que l'on veut supprimer
-                        this.context.Usagers.Remove(usage);
-                        this.context.SaveChanges();
-                        Console.WriteLine("L'usagé a été supprimer.");
+            }
+        }
+        private void AfficherElementsUsageASupprimer(Usager usageAEffacer)
+        // Fonction pour afficher les éléments supprimés en même temps qu'un usagé
+        {
+            AfficherImpressionASupprimer(usageAEffacer);
+            AfficherFilamentASupprimer(usageAEffacer);
+            Console.WriteLine("---------------------------------------");
+            AfficherUnUsage(usageAEffacer);
+        }
+        private void AfficherImpressionASupprimer(Usager usageAEffacer)
+        // Fonction pour afficher les impression à supprimer en même temps qu'un usagé
+        {
+            var impressions = this.context.Impressions.Where(c => c.UsagerId == usageAEffacer.ID);
+            foreach (Impression impression in impressions) // Affiche chaque impression de l'usage
+            {
+                Console.WriteLine("Impression #" + impression.ID + " " + impression.Nom.Trim());
+                foreach (Essaie essaie in impression.Essaies) // Affiche chaque essaie de l'impression
+                {
+                    Console.WriteLine("Essaie #" + essaie.ID + " " + essaie.Commentaire.Trim());
+                    foreach (EssaieFilament essaieFilament in essaie.EssaieFilaments) // Affiche chaque essaieFilament de l'essaie
+                    {
+                        Console.WriteLine("Essaie Filament #" + essaieFilament.EssaieId);
                     }
                 }
             }
-            Console.WriteLine("Appuyez sur la touche entrée");
-            Console.ReadLine();
         }
-        public void AfficherUnUsage(Usager usage)
+        private void AfficherFilamentASupprimer(Usager usageAEffacer)
+        // Fonction pour afficher les filaments à supprimer en même temps qu'un usagé
+        {
+            var filaments = this.context.Filaments.Where(c => c.ProprietaireId == usageAEffacer.ID);
+            foreach (Filament filament in filaments)
+            {
+                Console.WriteLine("Essaie Filament #" + filament.ID + " " + filament.TypeFilament.Materiel.Trim() + " " + filament.TypeFilament.Diametre);
+            }
+        }
+        private void SupprimerUsage(Usager usageAEffacer)
+        // Fonction pour supprimer un usagé
+        {
+            var impressions = this.context.Impressions.Where(c => c.UsagerId == usageAEffacer.ID);
+            foreach (Impression impression in impressions) // Pour chaque impression de l'usage
+            {
+                var essaies = impression.Essaies;
+                foreach (Essaie essaie in essaies) // Supprime chaque essaie
+                {
+                    var essaieFilaments = essaie.EssaieFilaments;
+                    foreach (EssaieFilament essaieFilament in essaieFilaments) // Supprime chaque essaieFilament de l'essaie
+                    {
+                        this.context.EssaieFilaments.Remove(essaieFilament);
+                    }
+                    this.context.Essaies.Remove(essaie);
+                }
+            }
+            var filaments = this.context.Filaments.Where(c => c.ProprietaireId == usageAEffacer.ID);
+            foreach (Filament filament in filaments) // Supprime chaque filament dont l'usage est le propriétaire
+            {
+                this.context.Filaments.Remove(filament);
+            }
+            this.context.Usagers.Remove(usageAEffacer); // Supprime l'usage
+        }
+        private void AfficherUnUsage(Usager usage)
         // Fonction pour afficher un usagé
         {
             Console.WriteLine("#{0} {1} {2}",
@@ -149,11 +198,11 @@ namespace TP2_0657657
                                     usage.Nom.Trim(),
                                     usage.Prenom.Trim());
         }
-        public void AfficherLesUsages()
+        private void AfficherLesUsages()
         // Fonction pour afficher tous les usagés
         {
             var usages = this.context.Usagers;
-            foreach (var usage in usages)
+            foreach (Usager usage in usages)
             {
                 AfficherUnUsage(usage);
             }
