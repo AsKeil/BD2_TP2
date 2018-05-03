@@ -113,7 +113,6 @@ namespace TP2_0657657
         }
         public void DUsage()
         // Fonction pour supprimer un usagé
-        // Le propriétaire d'un filament ne peut être supprimé si un autre usagé a fait une impression avec son filament
         // A2 D
         {
             bool veutSupprimer;
@@ -143,7 +142,7 @@ namespace TP2_0657657
         private void AfficherImpressionASupprimer(Usager usageAEffacer)
         // Fonction pour afficher les impression à supprimer en même temps qu'un usagé
         {
-            var impressions = this.context.Impressions.Where(c => c.UsagerId == usageAEffacer.ID);
+            var impressions = usageAEffacer.Impressions;
             foreach (Impression impression in impressions) // Affiche chaque impression de l'usage
             {
                 Console.WriteLine("Impression #" + impression.ID + " " + impression.Nom.Trim());
@@ -160,7 +159,7 @@ namespace TP2_0657657
         private void AfficherFilamentASupprimer(Usager usageAEffacer)
         // Fonction pour afficher les filaments à supprimer en même temps qu'un usagé
         {
-            var filaments = this.context.Filaments.Where(c => c.ProprietaireId == usageAEffacer.ID);
+            var filaments = usageAEffacer.Filaments;
             foreach (Filament filament in filaments)
             {
                 Console.WriteLine("Essaie Filament #" + filament.ID + " " + filament.TypeFilament.Materiel.Trim() + " " + filament.TypeFilament.Diametre);
@@ -169,13 +168,13 @@ namespace TP2_0657657
         private void SupprimerUsage(Usager usageAEffacer)
         // Fonction pour supprimer un usagé
         {
-            var impressions = this.context.Impressions.Where(c => c.UsagerId == usageAEffacer.ID);
+            var impressions = usageAEffacer.Impressions;
             foreach (Impression impression in impressions) // Pour chaque impression de l'usage
             {
-                var essaies = impression.Essaies;
+                var essaies = impression.Essaies.ToList();
                 foreach (Essaie essaie in essaies) // Supprime chaque essaie
                 {
-                    var essaieFilaments = essaie.EssaieFilaments;
+                    var essaieFilaments = essaie.EssaieFilaments.ToList();
                     foreach (EssaieFilament essaieFilament in essaieFilaments) // Supprime chaque essaieFilament de l'essaie
                     {
                         this.context.EssaieFilaments.Remove(essaieFilament);
@@ -183,7 +182,7 @@ namespace TP2_0657657
                     this.context.Essaies.Remove(essaie);
                 }
             }
-            var filaments = this.context.Filaments.Where(c => c.ProprietaireId == usageAEffacer.ID);
+            var filaments = usageAEffacer.Filaments.ToList();
             foreach (Filament filament in filaments) // Supprime chaque filament dont l'usage est le propriétaire
             {
                 this.context.Filaments.Remove(filament);
